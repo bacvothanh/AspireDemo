@@ -15,4 +15,8 @@
     <PackageReference Include="Aspire.Hosting.Kafka" Version="13.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AspireDemo.API\AspireDemo.API.csproj" />
+  </ItemGroup>
+
 </Project>
