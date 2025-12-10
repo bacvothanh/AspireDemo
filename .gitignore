@@ -6,3 +6,7 @@
 /AspireDemo.AppHost/bin/Debug/net9.0
 /AspireDemo.AppHost/obj
 /.vs/AspireDemo
+/.vs/ProjectEvaluation
+/AspireDemo.API/bin/Debug/net9.0
+/AspireDemo.API/obj
+/AspireDemo.ServiceDefaults/bin/Debug/net9.0
