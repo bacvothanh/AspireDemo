@@ -6,6 +6,7 @@ namespace AspireDemo.API.Controllers
     public class ProduceController : Controller
     {
         private readonly IConfiguration _config;
+        private const string Topic = "kafka";
         public ProduceController(IConfiguration config)
         {
             _config = config;
@@ -27,10 +28,28 @@ namespace AspireDemo.API.Controllers
 
             using var producer = new ProducerBuilder<string, string>(producerConfig).Build();
 
-            var topic1 = "kafka";
-            await producer.ProduceAsync(topic1, new Message<string, string> { Value = message, Key = key });
+            await producer.ProduceAsync(Topic, new Message<string, string> { Value = message, Key = key });
 
             return Ok("Message sent!");
+        }
+
+        [HttpGet("/produce-multiple")]
+        public async Task<IActionResult> ProduceMultiple(int amount)
+        {
+            var producerConfig = new ProducerConfig
+            {
+                BootstrapServers = this._config.GetConnectionString("kafka")
+            };
+            using var producer = new ProducerBuilder<string, string>(producerConfig).Build();
+
+            for (int i = 0; i < amount; i++)
+            {
+                var message = $"Message {i}";
+                var key = $"Key {i}";
+                await producer.ProduceAsync(Topic, new Message<string, string> { Value = message, Key = key });
+            }
+
+            return Ok($"{amount} messages sent!");
         }
     }
 }

@@ -18,12 +18,11 @@ namespace AspireDemo.API.Background
                     if (deliveryResult is not null && deliveryResult.Message is not null)
                     {
                         Console.WriteLine(
-                            $"Consumed message '{deliveryResult.Message.Value}' at: '{deliveryResult.TopicPartitionOffset}'.");
+                            $"Consumed message '{deliveryResult.Message.Value}' at: '{deliveryResult.TopicPartitionOffset}' at {DateTime.Now}.");
+
+                        // handle the business logic here then commit the consumer when finished
+                        //consumer.Commit(deliveryResult);
                     }
-
-                    // handle the business logic here then commit the consumer when finished
-
-                    consumer.Commit(deliveryResult);
 
                     // Optional small yield to be nice to the scheduler
                     await Task.Yield();
