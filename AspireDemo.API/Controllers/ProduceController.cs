@@ -18,17 +18,17 @@ namespace AspireDemo.API.Controllers
         }
 
         [HttpGet("/produce")]
-        public async Task<IActionResult> Produce(string message)
+        public async Task<IActionResult> Produce(string message, string key)
         {
             var producerConfig = new ProducerConfig
             {
                 BootstrapServers = this._config.GetConnectionString("kafka")
             };
 
-            using var producer = new ProducerBuilder<Null, string>(producerConfig).Build();
+            using var producer = new ProducerBuilder<string, string>(producerConfig).Build();
 
             var topic1 = "kafka";
-            await producer.ProduceAsync(topic1, new Message<Null, string> { Value = message });
+            await producer.ProduceAsync(topic1, new Message<string, string> { Value = message, Key = key });
 
             return Ok("Message sent!");
         }

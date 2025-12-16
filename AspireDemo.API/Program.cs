@@ -22,7 +22,7 @@ builder.AddKafkaConsumer<string, string>("kafka", options =>
 
 builder.Services.AddHostedService<KafkaConsumerService>();
 
-await KafkaExtension.CreateKafkaTopicAsync(bootstrapServers: builder.Configuration.GetConnectionString("kafka"), topicName: "kafka");
+await KafkaExtension.CreateKafkaTopicAsync(bootstrapServers: builder.Configuration.GetConnectionString("kafka") ?? "", topicName: "kafka");
 
 var app = builder.Build();
 
